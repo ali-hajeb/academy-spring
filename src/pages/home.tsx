@@ -7,7 +7,7 @@ export interface HomePageProps {
 const HomePage: React.FunctionComponent<HomePageProps> = () => {
   return (
     <>
-      <h1>Home</h1>
+      <h1 className='bg-red-100'>Home</h1>
     </>
   );
 }
