@@ -1,5 +1,5 @@
 {
-  "name": "react-ecommerce",
+  "name": "academy-spring",
   "version": "0.1.0",
   "private": true,
   "repository": {
@@ -22,6 +22,7 @@
     }
   ],
   "dependencies": {
+    "@mantine/form": "^5.8.2",
     "@reduxjs/toolkit": "^1.9.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
