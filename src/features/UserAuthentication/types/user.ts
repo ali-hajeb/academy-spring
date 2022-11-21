@@ -11,7 +11,7 @@ export interface IUserSignUpObject {
 export interface IUserLoginObject {
   email: string;
   password: string;
-  remember: boolean;
+  // remember: boolean;
 }
 
 export interface IStudent {
@@ -29,7 +29,7 @@ export interface IStudent {
 
 export interface IUserAuthResponseObject {
   success: boolean;
-  results: {
+  result: {
     studentModel: IStudent;
     jwtToken: string;
   };
@@ -44,9 +44,12 @@ export interface IResponseMessage {
 export interface IUserRedux extends IUser {
   isLoggedIn: boolean;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  response: { code: number; message: string } | null;
+  response: {
+    success: boolean;
+    message: { eventId: number; message: IResponseMessage[] };
+  } | null;
 }
 
-export default interface IUser extends IStudent{
+export default interface IUser extends IStudent {
   token: string;
 }

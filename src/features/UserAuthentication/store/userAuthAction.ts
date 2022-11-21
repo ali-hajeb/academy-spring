@@ -19,8 +19,8 @@ const signUp = createAsyncThunk(
         login({
           email: user.email,
           password: user.password,
-          remember: false,
-        }),
+          // remember: false,
+        })
       );
     } catch (error) {
       let errorResponse = { code: 500, message: 'Something went wrong!' };
@@ -30,7 +30,7 @@ const signUp = createAsyncThunk(
       }
       return rejectWithValue(errorResponse);
     }
-  },
+  }
 );
 
 const login = createAsyncThunk(
@@ -40,10 +40,17 @@ const login = createAsyncThunk(
       const response = await authService.login(userCredentials);
       const userData = response.data as IUserAuthResponseObject;
 
-      localStorage.setItem(userLocalStorageKey, JSON.stringify(userData));
+      localStorage.setItem(
+        userLocalStorageKey,
+        JSON.stringify({
+          _id: userData.result.studentModel._id,
+          token: userData.result.jwtToken,
+        })
+      );
 
       return {
-        ...userData,
+        ...userData.result.studentModel,
+        token: userData.result.jwtToken,
         isLoggedIn: true,
       };
     } catch (error) {
@@ -55,7 +62,7 @@ const login = createAsyncThunk(
       }
       return rejectWithValue(errorResponse);
     }
-  },
+  }
 );
 
 const checkAuthState = createAsyncThunk(
@@ -63,16 +70,15 @@ const checkAuthState = createAsyncThunk(
   async (_, { dispatch, getState }) => {
     const { user } = getState() as { user: IUserRedux };
     const userData = JSON.parse(
-      localStorage.getItem(userLocalStorageKey) || '{}',
+      localStorage.getItem(userLocalStorageKey) || '{}'
     ) as IUserRedux;
 
     if (!userData || !userData.token) {
-      console.log(getState());
       user.token && dispatch(logout());
     } else {
       return { ...userData, isLoggedIn: true };
     }
-  },
+  }
 );
 
 const userAuthAction = {

@@ -1,15 +1,19 @@
 import React from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import LoginPanel from '../containers/LoginPanel';
+import { useAppSelector } from '../store';
 
-export interface LoginPageProps {
-  
-}
+export interface LoginPageProps {}
 
 const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
-  return (
-    <>
-      <h1>Login</h1>
-    </>
-  );
-}
+  const { state } = useLocation();
+
+  const token = useAppSelector((state) => state.user.token);
+
+  const redirectPath = state?.from !== '/logout' ? state?.from || '/' : '/';
+  const redirect = token ? <Navigate to={redirectPath} replace /> : null;
+  
+  return redirect || <LoginPanel />;
+};
 
 export default LoginPage;
