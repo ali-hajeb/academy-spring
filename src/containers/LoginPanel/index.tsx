@@ -49,12 +49,16 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
   return (
     <UserFormBox formSubmitHandler={loginHanlder}>
       <h1 className="text-xl text-center font-bold">ورود به آکادمی!</h1>
-      <Alert response={response?.message?.message[0] || null} title="ای بابا!" />
+      <Alert
+        response={(response?.message && response?.message[0]) || null}
+        title="ای بابا!"
+      />
       <TextInput
         id="email"
         label="ایمیل"
         type={'email'}
         placeholder="example@example.com"
+        dir="auto"
         required
         {...form.getInputProps('email')}
       />
@@ -76,6 +80,7 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
           <div>ورود</div>
         </button>
         <button
+          type="button"
           className="mt-1 text-indigo-500 px-2 py-1.5 rounded-md hover:bg-indigo-200/20 w-full"
           onClick={buttonNavigateHandler}
         >
