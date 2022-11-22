@@ -27,27 +27,27 @@ export interface IStudent {
   profile: string;
 }
 
-export interface IUserAuthResponseObject {
-  success: boolean;
-  result: {
-    studentModel: IStudent;
-    jwtToken: string;
-  };
-  message: IResponseMessage[];
-}
-
 export interface IResponseMessage {
   eventId: number;
   message: string;
 }
 
+export interface IResponse {
+  success: boolean;
+  message: IResponseMessage[];
+}
+
+export interface IUserAuthResponseObject extends IResponse {
+  result: {
+    studentModel: IStudent;
+    jwtToken: string;
+  };
+}
+
 export interface IUserRedux extends IUser {
   isLoggedIn: boolean;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  response: {
-    success: boolean;
-    message: { eventId: number; message: IResponseMessage[] };
-  } | null;
+  response: IResponse | null;
 }
 
 export default interface IUser extends IStudent {
