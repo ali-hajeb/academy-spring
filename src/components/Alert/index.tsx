@@ -13,16 +13,16 @@ const Alert: React.FunctionComponent<AlertProps> = ({
   color,
   title,
 }) => {
-  const alertColor = color || response?.eventId && getColorFromCode(response.eventId) || 'pink';
-  const bgColor = `bg-${alertColor}-500/20`;
-  const textColor = `text-${alertColor}-500`
-  const borderColor = `border-${alertColor}-500`
+  const alertColor =
+    color ||
+    (response?.eventId && getColorFromCode(response.eventId)) ||
+    'pink';
+  const boxClass = `bg-${alertColor}-500/20 border-${alertColor}-500 border-solid rounded-md flex items-stretch my-2 p-2 border`;
+  const textColor = `text-${alertColor}-500`;
   return (
     <>
       {response?.eventId && (
-        <div
-          className={`${bgColor} flex items-stretch my-2 p-2 border ${borderColor} border-solid rounded-md`}
-        >
+        <div className={boxClass}>
           {icon && <div className="">{icon}</div>}
           <div className="grow">
             <strong className={textColor}>{title}</strong>
