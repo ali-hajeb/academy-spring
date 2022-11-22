@@ -7,6 +7,7 @@ import {
   IUserRedux,
   IUserAuthResponseObject,
   IUserSignUpObject,
+  IResponse,
 } from '../types/user';
 import { logout } from './userSlice';
 
@@ -23,10 +24,14 @@ const signUp = createAsyncThunk(
         })
       );
     } catch (error) {
-      let errorResponse = { code: 500, message: 'Something went wrong!' };
+      let errorResponse: IResponse = {
+        success: false,
+        message: [{ eventId: 500, message: 'یه مشکلی پیش اومده!' }],
+      };
       if (axios.isAxiosError(error)) {
-        errorResponse.code = error.status || 500;
+        errorResponse.message[0].eventId = error.status || 500;
         errorResponse = { ...errorResponse, ...error.response?.data };
+        console.log(errorResponse);
       }
       return rejectWithValue(errorResponse);
     }
@@ -54,11 +59,14 @@ const login = createAsyncThunk(
         isLoggedIn: true,
       };
     } catch (error) {
-      let errorResponse = { code: 500, message: 'Something went wrong!' };
+      let errorResponse: IResponse = {
+        success: false,
+        message: [{ eventId: 500, message: 'یه مشکلی پیش اومده!' }],
+      };
       if (axios.isAxiosError(error)) {
-        errorResponse.code = error.status || 500;
-
+        errorResponse.message[0].eventId = error.status || 500;
         errorResponse = { ...errorResponse, ...error.response?.data };
+        console.log(errorResponse);
       }
       return rejectWithValue(errorResponse);
     }
