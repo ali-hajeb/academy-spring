@@ -22,15 +22,15 @@ const handleContact = () => {
     <>
     {modal &&  
       
-      <div className='z-22 w-full h-full fixed flex flex-row justify-center items-center  '>
+      <div className=' w-full h-full fixed flex flex-row justify-center items-center'>
 
-<div className="bg-white z-20 flex flex-col w-1/2 h-2/3 rounded-md justify-center items-center shadow-2xl">
+<div className="bg-gray-100 flex flex-col w-1/2 h-2/3 rounded-md justify-center items-center shadow-2xl">
 
-<div className="fixed w-1/3 bg-gray-200 border-2 border-blue-600 rounded-md ">
+<div className="fixed w-1/3 bg-white border-2 border-blue-600 rounded-md ">
   <button onClick={handleContact} className="absolute top-0 bg-red-700 text-white px-3 h-full">X</button>
   <div className='m-4 flex flex-col mx-auto justify-center'>
-  <textarea defaultValue="انتقادات و پیشنهادات خود را بنویسید ... " className=" rounded-md outline-none w-3/4 p-3 mx-auto my-4 h-36"/>
-  <button className="bg-blue-800 p-2 rounded-md text-white w-16 mx-auto">ارسال</button>
+  <textarea defaultValue="انتقادات و پیشنهادات خود را بنویسید ... " className=" rounded-md w-3/4 p-3 mx-auto my-4 h-36 border-2 focus:outline-blue-600"/>
+  <button className="bg-blue-800 p-3 rounded-md text-white w-16 mx-auto">ارسال</button>
   </div>
 </div>
 
@@ -45,8 +45,9 @@ const handleContact = () => {
   
       <div className="bg-white m-3 p-4 rounded-sm">
           <div className="flex flex-row w-full justify-between ">
-            <button className="bg-green-800 p-4 text-lg rounded-md text-white" onClick={handleContact}>Contact</button>
-            <button className="bg-blue-800 p-4 text-lg rounded-md text-white">Auth</button>
+            <Link to={`/login`} className="bg-blue-800 p-4 text-lg rounded-md text-white px-6">ورود</Link>
+            <button className="bg-green-800 p-4 text-lg rounded-md text-white px-6" onClick={handleContact}>تماس</button>
+           
           </div>
           
           <div className=" rounded-lg w-4/5 h-96 mx-auto flex flex-row justify-center items-center shadow-lg text-white m-3" 
