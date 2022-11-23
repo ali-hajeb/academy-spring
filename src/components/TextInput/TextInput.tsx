@@ -27,7 +27,7 @@ const TextInput: React.FunctionComponent<TextInputProps> = (props) => {
 
   const inputClassList = useMemo(() => {
     const classList = [
-      'appearance-none rounded-md relative block w-full px-3 mx-auto py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-600 focus:border-blue-600 focus:z-10 sm:text-sm',
+      'appearance-none relative block grow placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
     ];
     if (error) classList.push('border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500');
     if (inputClassName) classList.push(inputClassName);
@@ -36,11 +36,11 @@ const TextInput: React.FunctionComponent<TextInputProps> = (props) => {
 
   return (
     <InputGroup className={wrapperClassName}>
-      <label htmlFor={id} className="mx-auto">{label}</label>
+      <label htmlFor={id}>{label}</label>
       <InputWrapper>
         <input id={id} className={inputClassList.join(' ')} {...inputProps} />
+        {icon && <div>{icon}</div>}
       </InputWrapper>
-
       {error && <div className="text-pink-500 font-medium text-sm">{error}</div>}
     </InputGroup>
   );

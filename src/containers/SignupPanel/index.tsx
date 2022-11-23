@@ -77,15 +77,13 @@ const SignUpPanel: React.FunctionComponent<SignUpPanelProps> = () => {
     navigate('/login');
   };
   return (
-   <div className='w-full h-screen bg-white p-4'>
-     <UserFormBox formSubmitHandler={loginHanlder}>
- <div>
- <h1 className="text-xl text-center font-bold">نام‌نویسی در آکادمی!</h1>
+    <UserFormBox formSubmitHandler={loginHanlder}>
+      <h1 className="text-xl text-center font-bold">نام‌نویسی در آکادمی!</h1>
       <Alert
         response={(response?.message && response?.message[0]) || null}
         title="ای بابا!"
       />
-      <div className="flex flex-row mx-auto gap-2 mt-2 w-3/4">
+      <div className="grid grid-cols-2 gap-2 mt-2">
         <TextInput
           id="firstname"
           label="نام"
@@ -153,7 +151,7 @@ const SignUpPanel: React.FunctionComponent<SignUpPanelProps> = () => {
         <InputWrapper>
           <DatePicker
             inputPlaceholder="انتخاب تاریخ تولد"
-            inputClassName="focus:outline-blue-600 rounded-md w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
+            inputClassName="rounded-md w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
             wrapperClassName="w-full"
             value={birthDate}
             onChange={setBirthDate}
@@ -162,10 +160,9 @@ const SignUpPanel: React.FunctionComponent<SignUpPanelProps> = () => {
           />
         </InputWrapper>
       </InputGroup>
- </div>
-      <div className="mt-3 mx-auto flex flex-col">
+      <div className="mt-3">
         <button
-          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1.5 rounded-md shadow-md p-3 disabled:bg-gray-300"
+          className="flex justify-center items-center bg-indigo-500 hover:bg-indigo-600 text-white px-2 py-1.5 rounded-md shadow-md w-full disabled:bg-gray-300"
           type="submit"
           disabled={status === 'loading'}
         >
@@ -174,14 +171,13 @@ const SignUpPanel: React.FunctionComponent<SignUpPanelProps> = () => {
         </button>
         <button
           type="button"
-          className="mt-1 text-blue-600 px-2 py-1.5 rounded-md hover:bg-blue-100 p-3"
+          className="mt-1 text-indigo-600 px-2 py-1.5 rounded-md hover:bg-indigo-200/20 w-full"
           onClick={buttonNavigateHandler}
         >
           قبلاً ثبت نام کردی؟ وارد شو!
         </button>
       </div>
     </UserFormBox>
-   </div>
   );
 };
 

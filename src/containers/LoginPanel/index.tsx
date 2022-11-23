@@ -47,10 +47,8 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
     navigate('/signup');
   };
   return (
-    <div className='w-full h-screen bg-white p-4'>
     <UserFormBox formSubmitHandler={loginHanlder}>
-    <div>
-    <h1 className="text-xl text-center font-bold">ورود به آکادمی!</h1>
+      <h1 className="text-xl text-center font-bold">ورود به آکادمی!</h1>
       <Alert
         response={(response?.message && response?.message[0]) || null}
         title="ای بابا!"
@@ -72,10 +70,9 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
         required
         {...form.getInputProps('password')}
       />
-    </div>
-      <div className="mt-3 mx-auto flex flex-col">
+      <div className="mt-3">
         <button
-          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1/5 rounded-md shadow-md disabled:bg-gray-300 p-3 "
+          className="flex justify-center items-center bg-indigo-500 hover:bg-indigo-600 text-white px-2 py-1.5 rounded-md shadow-md w-full disabled:bg-gray-300"
           type="submit"
           disabled={status === 'loading'}
         >
@@ -84,14 +81,13 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
         </button>
         <button
           type="button"
-          className="mt-1 text-blue-600 px-2 py-1/5 rounded-md hover:bg-blue-200/20 p-3"
+          className="mt-1 text-indigo-600 px-2 py-1.5 rounded-md hover:bg-indigo-200/20 w-full"
           onClick={buttonNavigateHandler}
         >
           تازه واردی؟ ثبت نام کن!
         </button>
       </div>
     </UserFormBox>
-    </div>
   );
 };
 
