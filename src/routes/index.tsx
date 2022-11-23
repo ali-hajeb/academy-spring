@@ -13,6 +13,7 @@ const protectedRoutes: RouteObject[] = [
 ];
 const publicRoutes: RouteObject[] = [
   { index: true, element: <HomePage /> },
+  { path: '/:pageNumber', element: <HomePage /> },
   { path: '/courses/:id', element: <CoursePage /> },
   { path: '/courses', element: <CoursesPage /> },
   { path: '/arash', element: <Arash /> },

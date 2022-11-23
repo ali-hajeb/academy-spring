@@ -1,6 +1,9 @@
-import axios, { Axios } from 'axios';
+import { Axios } from 'axios';
+import { useMemo} from 'react';
 
-const coursesAxios = new Axios({baseURL:`${process.env.REACT_APP_API_URL}`})
+
+const coursesAxios = new Axios({baseURL:`${process.env.REACT_APP_API_URL}`});
+
 
 
 const courseRequest = {

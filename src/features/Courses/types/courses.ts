@@ -36,7 +36,8 @@ teacher: ITeacher,
 };
 
 export interface IResponseMessage {
-  eventId: number;
+  eventId?: number;
+  code?: string,
   message: string;
 }
 
@@ -45,9 +46,27 @@ export interface ICoursesResponseObject{
   result:ICourse[],
   message:IResponseMessage[]
 }
+export interface ICoursesPaginationResponseObject{
+  success: Boolean,
+  result:ICourse[],
+  count: number,
+  message:IResponseMessage[]
+}
 
 export interface ICoursesRedux {
   coursesList: ICourse[],
+  rawCoursesList: ICourse[],
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  response: { code: number; message: string } | null;
+  response: IResponseMessage | null;
+  searchClue: string;
+  paginationPagesCount:number;
 } 
+
+export interface IGetPaginatedCoursesParams {
+  pageNumber: number,
+  pageSize: number ;
+}
+export interface IGetCoursesParams {
+  pageNumber?: number,
+  pageSize: number|'ALL' ;
+}
