@@ -24,10 +24,10 @@ const handleContact = () => {
       
       <div className=' w-full h-full fixed flex flex-row justify-center items-center'>
 
-<div className="bg-gray-100 flex flex-col w-1/2 h-2/3 rounded-md justify-center items-center shadow-2xl">
+<div className="fixed bg-gray-100 flex flex-col w-1/2 h-2/3 rounded-md justify-center items-center shadow-2xl">
 
+  <button onClick={handleContact} className="absolute top-0 left-0 bg-red-700 text-white px-10 py-3 ">X</button>
 <div className="fixed w-1/3 bg-white border-2 border-blue-600 rounded-md ">
-  <button onClick={handleContact} className="absolute top-0 bg-red-700 text-white px-3 h-full">X</button>
   <div className='m-4 flex flex-col mx-auto justify-center'>
   <textarea defaultValue="انتقادات و پیشنهادات خود را بنویسید ... " className=" rounded-md w-3/4 p-3 mx-auto my-4 h-36 border-2 focus:outline-blue-600"/>
   <button className="bg-blue-800 p-3 rounded-md text-white w-16 mx-auto">ارسال</button>
