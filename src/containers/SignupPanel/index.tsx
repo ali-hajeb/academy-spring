@@ -77,7 +77,7 @@ const SignUpPanel: React.FunctionComponent<SignUpPanelProps> = () => {
     navigate('/login');
   };
   return (
-   <div className='w-full h-screen bg-white p-4'>
+   <div className='w-full p-4'>
      <UserFormBox formSubmitHandler={loginHanlder}>
  <div>
  <h1 className="text-xl text-center font-bold">نام‌نویسی در آکادمی!</h1>

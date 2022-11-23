@@ -47,7 +47,7 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
     navigate('/signup');
   };
   return (
-    <div className='w-full h-screen bg-white p-4'>
+    <div className='w-full bg-white p-4'>
     <UserFormBox formSubmitHandler={loginHanlder}>
     <div>
     <h1 className="text-xl text-center font-bold">ورود به آکادمی!</h1>
