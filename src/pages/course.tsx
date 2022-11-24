@@ -14,9 +14,9 @@ const CoursePage: React.FunctionComponent<CoursePageProps> = () => {
     <div className='w-full bg-slate-200 gap-3 p-2 flex flex-col min-h-screen' >
       <h1>Course_{course.status}</h1>
 <button onClick={likeCourse} className={btnStyle}  >like</button>
-<button className={btnStyle}  >addStudent</button>
 <button onClick={disLikeCourse} className={btnStyle}  >disLike</button>
-<div className='bg-zinc-300 p-2 rounded-md'>{`likeCount:$`}</div>
+<button onClick={addStudentToCourse} className={btnStyle}  >Enroll</button>
+<div className='bg-zinc-300 p-2 rounded-md'>{`likeCount: ${course.count.like}`}</div>
     </div>
   );
 }
