@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../store';
 import Spinner from '../../components/Spinner';
 import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
+import { ILoginResponse } from '../../features/UserAuthentication/types/user';
 
 export interface LoginPanelProps {}
 
@@ -17,7 +18,8 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { status, response } = useAppSelector((state) => state.user);
+  const { status, response: _res } = useAppSelector((state) => state.user);
+  const response = _res as ILoginResponse
   const form = useForm({
     initialValues: {
       email: '',
@@ -50,7 +52,7 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
     <UserFormBox formSubmitHandler={loginHanlder}>
       <h1 className="text-xl text-center font-bold">ورود به آکادمی!</h1>
       <Alert
-        response={(response?.message && response?.message[0]) || null}
+        response={(response?.message && response?.message.message[0]) || null}
         title="ای بابا!"
       />
       <TextInput

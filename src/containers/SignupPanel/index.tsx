@@ -17,6 +17,7 @@ import {
 } from '../../features/UserAuthentication';
 import { useAppDispatch, useAppSelector } from '../../store';
 import '@amir04lm26/react-modern-calendar-date-picker/lib/DatePicker.css';
+import { IResponse } from '../../features/UserAuthentication/types/user';
 
 export interface SignUpPanelProps {}
 
@@ -24,7 +25,8 @@ const SignUpPanel: React.FunctionComponent<SignUpPanelProps> = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { status, response } = useAppSelector((state) => state.user);
+  const { status, response: _res } = useAppSelector((state) => state.user);
+  const response = _res as IResponse;
 
   const [birthDate, setBirthDate] = useState<DayValue>(null);
 
@@ -151,7 +153,7 @@ const SignUpPanel: React.FunctionComponent<SignUpPanelProps> = () => {
         <InputWrapper>
           <DatePicker
             inputPlaceholder="انتخاب تاریخ تولد"
-            inputClassName="rounded-md w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
+            inputClassName="w-full border-0 p-0 m-0 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             wrapperClassName="w-full"
             value={birthDate}
             onChange={setBirthDate}
