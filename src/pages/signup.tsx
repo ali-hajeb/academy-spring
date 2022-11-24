@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import Header from '../components/Header';
 import SignUpPanel from '../containers/SignupPanel';
 import { useAppSelector } from '../store';
 
@@ -15,7 +16,7 @@ const SignUpPage: React.FunctionComponent<SignUpPageProps> = () => {
   const redirectPath = state?.from !== '/logout' ? state?.from || '/' : '/';
   const redirect = token ? <Navigate to={redirectPath} replace /> : null;
   
-  return redirect || <SignUpPanel />;
+  return redirect || <Header><SignUpPanel /></Header>;
 }
 
 export default SignUpPage;

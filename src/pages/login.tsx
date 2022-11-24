@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import Header from '../components/Header';
 import LoginPanel from '../containers/LoginPanel';
 import { useAppSelector } from '../store';
 
@@ -13,7 +14,7 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
   const redirectPath = state?.from !== '/logout' ? state?.from || '/' : '/';
   const redirect = token ? <Navigate to={redirectPath} replace /> : null;
   
-  return redirect || <LoginPanel />;
+  return redirect || <Header><LoginPanel /></Header>;
 };
 
 export default LoginPage;
