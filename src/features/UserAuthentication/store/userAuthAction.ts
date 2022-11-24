@@ -8,6 +8,7 @@ import {
   IUserAuthResponseObject,
   IUserSignUpObject,
   IResponse,
+  ILoginResponse,
 } from '../types/user';
 import { logout } from './userSlice';
 
@@ -59,12 +60,15 @@ const login = createAsyncThunk(
         isLoggedIn: true,
       };
     } catch (error) {
-      let errorResponse: IResponse = {
+      let errorResponse: ILoginResponse = {
         success: false,
-        message: [{ eventId: 500, message: 'یه مشکلی پیش اومده!' }],
+        message: {
+          eventId: 500,
+          message: [{ eventId: 500, message: 'یه مشکلی پیش اومده!' }],
+        },
       };
       if (axios.isAxiosError(error)) {
-        errorResponse.message[0].eventId = error.status || 500;
+        errorResponse.message.message[0].eventId = error.status || 500;
         errorResponse = { ...errorResponse, ...error.response?.data };
         console.log(errorResponse);
       }
