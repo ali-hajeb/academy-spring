@@ -154,7 +154,7 @@ const SignUpPanel: React.FunctionComponent<SignUpPanelProps> = () => {
           <DatePicker
             inputPlaceholder="انتخاب تاریخ تولد"
             inputClassName="w-full border-0 p-0 m-0 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            wrapperClassName="w-full"
+            wrapperClassName="w-full border-0"
             value={birthDate}
             onChange={setBirthDate}
             shouldHighlightWeekends
