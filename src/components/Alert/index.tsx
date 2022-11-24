@@ -3,7 +3,7 @@ import React from 'react';
 export interface AlertProps {
   icon?: React.ReactNode;
   response: { eventId: number; message: string } | null;
-  title: string;
+  title?: string;
   color?: string;
 }
 
@@ -13,8 +13,8 @@ const Alert: React.FunctionComponent<AlertProps> = ({
   color,
   title,
 }) => {
-  const alertColor = color || response?.eventId && getColorFromCode(response.eventId) || 'pink';
-  const bgColor = `bg-${alertColor}-500/20`;
+  const alertColor = color || (response?.eventId && getColorFromCode(response.eventId)) || 'pink';
+  const bgColor = `bg-${alertColor}-500`;
   const textColor = `text-${alertColor}-500`
   const borderColor = `border-${alertColor}-500`
   return (
@@ -25,7 +25,7 @@ const Alert: React.FunctionComponent<AlertProps> = ({
         >
           {icon && <div className="">{icon}</div>}
           <div className="grow">
-            <strong className={textColor}>{title}</strong>
+            {title && <strong className={textColor}>{title}</strong>}
             <p>{response?.message}</p>
           </div>
         </div>

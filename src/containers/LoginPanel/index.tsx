@@ -11,6 +11,7 @@ import Spinner from '../../components/Spinner';
 import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import { ILoginResponse } from '../../features/UserAuthentication/types/user';
+import CardContainer from '../../components/Card/CardContainer';
 
 export interface LoginPanelProps {}
 
@@ -50,45 +51,51 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
   };
   return (
     <UserFormBox formSubmitHandler={loginHanlder}>
-      <h1 className="text-xl text-center font-bold">ورود به آکادمی!</h1>
-      <Alert
-        response={(response?.message && response?.message.message[0]) || null}
-        title="ای بابا!"
-      />
-      <TextInput
-        id="email"
-        label="ایمیل"
-        type={'email'}
-        placeholder="example@example.com"
-        dir="auto"
-        required
-        {...form.getInputProps('email')}
-      />
-      <TextInput
-        id="password"
-        label="گذرواژه"
-        type="password"
-        placeholder="گذرواژه کاربر"
-        required
-        {...form.getInputProps('password')}
-      />
-      <div className="mt-3">
-        <button
-          className="flex justify-center items-center bg-indigo-500 hover:bg-indigo-600 text-white px-2 py-1.5 rounded-md shadow-md w-full disabled:bg-gray-300"
-          type="submit"
-          disabled={status === 'loading'}
-        >
-          {status === 'loading' && <Spinner />}
-          <div>ورود</div>
-        </button>
-        <button
-          type="button"
-          className="mt-1 text-indigo-600 px-2 py-1.5 rounded-md hover:bg-indigo-200/20 w-full"
-          onClick={buttonNavigateHandler}
-        >
-          تازه واردی؟ ثبت نام کن!
-        </button>
-      </div>
+      <CardContainer>
+        <div className="p-3">
+          <h1 className="text-xl text-center font-bold">ورود به آکادمی!</h1>
+          <Alert
+            response={
+              (response?.message && response?.message.message[0]) || null
+            }
+            title="ای بابا!"
+          />
+          <TextInput
+            id="email"
+            label="ایمیل"
+            type={'email'}
+            placeholder="example@example.com"
+            dir="auto"
+            required
+            {...form.getInputProps('email')}
+          />
+          <TextInput
+            id="password"
+            label="گذرواژه"
+            type="password"
+            placeholder="گذرواژه کاربر"
+            required
+            {...form.getInputProps('password')}
+          />
+          <div className="mt-3">
+            <button
+              className="flex justify-center items-center bg-indigo-500 hover:bg-indigo-600 text-white px-2 py-1.5 rounded-md shadow-md w-full disabled:bg-gray-300"
+              type="submit"
+              disabled={status === 'loading'}
+            >
+              {status === 'loading' && <Spinner />}
+              <div>ورود</div>
+            </button>
+            <button
+              type="button"
+              className="mt-1 text-indigo-600 px-2 py-1.5 rounded-md hover:bg-indigo-200/20 w-full"
+              onClick={buttonNavigateHandler}
+            >
+              تازه واردی؟ ثبت نام کن!
+            </button>
+          </div>
+        </div>
+      </CardContainer>
     </UserFormBox>
   );
 };
