@@ -25,14 +25,10 @@ const signUp = createAsyncThunk(
         })
       );
     } catch (error) {
-      let errorResponse: IResponse = {
-        success: false,
-        message: [{ eventId: 500, message: 'یه مشکلی پیش اومده!' }],
-      };
+      let errorResponse = { code: 500, message: 'Something went wrong!' };
       if (axios.isAxiosError(error)) {
-        errorResponse.message[0].eventId = error.status || 500;
+        errorResponse.code = error.status || 500;
         errorResponse = { ...errorResponse, ...error.response?.data };
-        console.log(errorResponse);
       }
       return rejectWithValue(errorResponse);
     }
@@ -70,7 +66,6 @@ const login = createAsyncThunk(
       if (axios.isAxiosError(error)) {
         errorResponse.message.message[0].eventId = error.status || 500;
         errorResponse = { ...errorResponse, ...error.response?.data };
-        console.log(errorResponse);
       }
       return rejectWithValue(errorResponse);
     }

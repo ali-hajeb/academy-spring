@@ -7,20 +7,19 @@ import HomePage from '../pages/home';
 import LoginPage from '../pages/login';
 import ResetPassPage from '../pages/reset_pass';
 import SignUpPage from '../pages/signup';
-import LogoutPage from '../pages/logout';
 
 const protectedRoutes: RouteObject[] = [
   // { index: true, element: <HomePage /> },
 ];
 const publicRoutes: RouteObject[] = [
   { index: true, element: <HomePage /> },
+  { path: '/:pageNumber', element: <HomePage /> },
   { path: '/courses/:id', element: <CoursePage /> },
   { path: '/courses', element: <CoursesPage /> },
   { path: '/arash', element: <Arash /> },
 ];
 const authenticationRoutes: RouteObject[] = [
   { path: '/login', element: <LoginPage /> },
-  { path: '/logout', element: <LogoutPage /> },
   { path: '/signup', element: <SignUpPage /> },
   { path: '/reset_pass', element: <ResetPassPage /> },
   { path: '/forget_pass', element: <ForgetPassPage /> },

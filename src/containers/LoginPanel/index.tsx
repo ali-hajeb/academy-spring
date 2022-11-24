@@ -60,7 +60,6 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
         label="ایمیل"
         type={'email'}
         placeholder="example@example.com"
-        dir="auto"
         required
         {...form.getInputProps('email')}
       />

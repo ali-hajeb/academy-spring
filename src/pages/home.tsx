@@ -3,6 +3,7 @@ import TextInput from '../components/TextInput';
 import Header from '../containers/Header';
 import Section from '../containers/Section';
 import coursesAction from '../features/Courses/store/coursesAction';
+import { searchCourse, setSearchClue } from '../features/Courses/store/coursesSlice';
 import { useAppDispatch, useAppSelector } from '../store';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import CourseCard, { CourseCardSkeleton } from '../components/Card/CourseCard';

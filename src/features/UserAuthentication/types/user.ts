@@ -27,9 +27,9 @@ export interface IStudent {
   profile: string;
 }
 
-export interface IResponseMessage {
-  eventId: number;
-  message: string;
+export interface IUserAuthResponseObject {
+  success: boolean;
+  message: IResponseMessage[];
 }
 
 export interface IResponse {
@@ -50,6 +50,12 @@ export interface IUserAuthResponseObject extends IResponse {
     studentModel: IStudent;
     jwtToken: string;
   };
+  message: IResponseMessage[];
+}
+
+export interface IResponseMessage {
+  eventId: number;
+  message: string;
 }
 
 export interface IUserRedux extends IUser {

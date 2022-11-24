@@ -2,12 +2,10 @@ import React from 'react';
 
 export interface UserFormBoxProps extends React.PropsWithChildren {
   formSubmitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
-  formClassName?: string;
 }
 
 const UserFormBox: React.FunctionComponent<UserFormBoxProps> = ({
   children,
-  formClassName,
   formSubmitHandler,
 }) => {
   return (
