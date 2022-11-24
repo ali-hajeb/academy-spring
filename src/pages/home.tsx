@@ -20,7 +20,7 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
 
   const searchHandler = useCallback(debounce(setSearch, 500), []);
   const getCoursesHandler = useCallback(
-    () => dispatch(coursesAction.getAllCourses()),
+    () => dispatch(coursesAction.getCourses({pageSize: 'ALL'})),
     [dispatch]
   );
 
