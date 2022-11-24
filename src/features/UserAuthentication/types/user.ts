@@ -37,6 +37,14 @@ export interface IResponse {
   message: IResponseMessage[];
 }
 
+export interface ILoginResponse {
+  success: boolean;
+  message: {
+    eventId: number,
+    message: IResponseMessage[]
+  };
+}
+
 export interface IUserAuthResponseObject extends IResponse {
   result: {
     studentModel: IStudent;
@@ -47,7 +55,7 @@ export interface IUserAuthResponseObject extends IResponse {
 export interface IUserRedux extends IUser {
   isLoggedIn: boolean;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  response: IResponse | null;
+  response: IResponse | ILoginResponse | null;
 }
 
 export default interface IUser extends IStudent {
