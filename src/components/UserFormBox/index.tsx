@@ -11,7 +11,7 @@ const UserFormBox: React.FunctionComponent<UserFormBoxProps> = ({
   formSubmitHandler,
 }) => {
   return (
-    <section className='flex justify-center items-center h-full w-full'>
+    <section className='flex justify-center items-center my-10 h-full w-full'>
       <div className='py-2 px-2 w-full sm:w-[400px]'>
         <form className={formClassName} onSubmit={formSubmitHandler}>{children}</form>
       </div>
