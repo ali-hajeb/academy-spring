@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { userLocalStorageKey } from '../constants';
-import { IUserRedux } from '../types/user';
+import { ILoginResponse, IResponse, IUserRedux } from '../types/user';
 import userAuthAction from './userAuthAction';
 
 const initialState: IUserRedux = {
@@ -32,50 +32,60 @@ const userSlice = createSlice({
       return initialState;
     },
   },
-  extraReducers: {
-    [userAuthAction.signUp.pending.toString()]: (state) => {
-      return { ...state, status: 'loading', isLoggedIn: false, response: null };
-    },
-    [userAuthAction.signUp.fulfilled.toString()]: (state, action) => {
-      return {
-        ...state,
-        ...action.payload,
-        status: 'succeeded',
-        response: null,
-      };
-    },
-    [userAuthAction.signUp.rejected.toString()]: (state, action) => {
-      state.status = 'failed';
-      state.response = action.payload;
-    },
-    [userAuthAction.login.pending.toString()]: (state) => {
-      return { ...state, status: 'loading', isLoggedIn: false, response: null };
-    },
-    [userAuthAction.login.fulfilled.toString()]: (state, action) => {
-      return {
-        ...state,
-        ...action.payload,
-        status: 'succeeded',
-        isLoggedIn: true,
-        response: null,
-      };
-    },
-    [userAuthAction.login.rejected.toString()]: (state, action) => {
-      state.status = 'failed';
-      state.isLoggedIn = false;
-      state.response = action.payload;
-    },
-    [userAuthAction.checkAuthState.pending.toString()]: (state) => {
-      return { ...state, status: 'loading', response: null };
-    },
-    [userAuthAction.checkAuthState.fulfilled.toString()]: (state, action) => {
-      return {
-        ...state,
-        ...action.payload,
-        status: 'succeeded',
-        response: null,
-      };
-    },
+  extraReducers(builder) {
+    builder
+      .addCase(userAuthAction.signUp.pending, (state) => {
+        return {
+          ...state,
+          status: 'loading',
+          isLoggedIn: false,
+          response: null,
+        };
+      })
+      .addCase(userAuthAction.signUp.fulfilled, (state) => {
+        return {
+          ...state,
+          status: 'succeeded',
+          response: null,
+        };
+      })
+      .addCase(userAuthAction.signUp.rejected, (state, action) => {
+        state.status = 'failed';
+        state.response = action.payload as IResponse;
+      })
+      .addCase(userAuthAction.login.pending, (state) => {
+        return {
+          ...state,
+          status: 'loading',
+          isLoggedIn: false,
+          response: null,
+        };
+      })
+      .addCase(userAuthAction.login.fulfilled, (state, action) => {
+        return {
+          ...state,
+          ...action.payload,
+          status: 'succeeded',
+          isLoggedIn: true,
+          response: null,
+        };
+      })
+      .addCase(userAuthAction.login.rejected, (state, action) => {
+        state.status = 'failed';
+        state.isLoggedIn = false;
+        state.response = action.payload as ILoginResponse;
+      })
+      .addCase(userAuthAction.checkAuthState.pending, (state) => {
+        return { ...state, status: 'loading', response: null };
+      })
+      .addCase(userAuthAction.checkAuthState.fulfilled, (state, action) => {
+        return {
+          ...state,
+          ...action.payload,
+          status: 'succeeded',
+          response: null,
+        };
+      });
   },
 });
 
