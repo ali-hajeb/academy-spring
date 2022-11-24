@@ -109,9 +109,8 @@ const handleContact = () => {
           <div className="mx-auto mt-10 w-4/5 grid grid-cols-4 gap-3">
 
           {
-            courses.coursesList?.map(c => {
+            courses.coursesList?.map((c) => {
               return (
-                <>
                 <Link state={c} to={`/courses/${c._id}`} key={c._id} >
                   <div className='flex flex-col border-blue-600 border-2 rounded-md m-2 hover:shadow-2xl'>
                   <div className="mb-2 bg-no-repeat bg-cover w-full h-48 bg-center shadow-lg"
@@ -156,7 +155,7 @@ const handleContact = () => {
                     </div>
                   </div>
                   </Link>
-                </>
+                
               )
             })
           }

@@ -46,7 +46,6 @@ if (action.payload === '') {
       state.coursesList =[];
       state.rawCoursesList = [];
       state.response = action.payload ;
-      console.log(action);
     },
     [coursesAction.getCourses.fulfilled.toString()]: (state, action) => {
       const payload = JSON.parse(action.payload);
@@ -79,7 +78,7 @@ if (action.payload === '') {
     [coursesAction.searchAllCourses.pending.toString()]: (state, action) => {
       state.status = 'loading';
       state.response = action.payload ;
-      console.log(action);
+      
     },
     [coursesAction.searchAllCourses.fulfilled.toString()]: (state, action) => {
       const payload = JSON.parse(action.payload);
