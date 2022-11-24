@@ -76,7 +76,7 @@ const SignUpPanel: React.FunctionComponent<SignUpPanelProps> = () => {
 
   const buttonNavigateHandler = () => {
     dispatch(resetResponse());
-    navigate('/login');
+    navigate('/login', { replace: true });
   };
   return (
     <UserFormBox formSubmitHandler={loginHanlder}>

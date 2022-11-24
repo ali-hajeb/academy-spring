@@ -19,7 +19,7 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
   const dispatch = useAppDispatch();
 
   const { status, response: _res } = useAppSelector((state) => state.user);
-  const response = _res as ILoginResponse
+  const response = _res as ILoginResponse;
   const form = useForm({
     initialValues: {
       email: '',
@@ -46,7 +46,7 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
 
   const buttonNavigateHandler = () => {
     dispatch(resetResponse());
-    navigate('/signup');
+    navigate('/signup', { replace: true });
   };
   return (
     <UserFormBox formSubmitHandler={loginHanlder}>
@@ -60,6 +60,7 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
         label="ایمیل"
         type={'email'}
         placeholder="example@example.com"
+        dir="auto"
         required
         {...form.getInputProps('email')}
       />
