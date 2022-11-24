@@ -8,6 +8,7 @@ import LoginPage from '../pages/login';
 import ResetPassPage from '../pages/reset_pass';
 import SignUpPage from '../pages/signup';
 import LogoutPage from '../pages/logout';
+import ContactUsPage from '../pages/contact_us';
 
 const protectedRoutes: RouteObject[] = [
   // { index: true, element: <HomePage /> },
@@ -17,6 +18,7 @@ const publicRoutes: RouteObject[] = [
   { path: '/:pageNumber', element: <HomePage /> },
   { path: '/courses/:id', element: <CoursePage /> },
   { path: '/courses', element: <CoursesPage /> },
+  { path: '/contact-us', element: <ContactUsPage /> },
   { path: '/arash', element: <Arash /> },
 ];
 const authenticationRoutes: RouteObject[] = [
