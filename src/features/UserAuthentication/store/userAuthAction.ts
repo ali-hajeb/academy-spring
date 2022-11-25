@@ -67,7 +67,6 @@ const login = createAsyncThunk(
           new Date(userFP.resetPasswordExpires).getMilliseconds() <
             new Date().getMilliseconds())
       ) {
-        console.log('here');
         try {
           await authService.forgetPassword(userData.result.studentModel.email);
         } catch (error) {}
@@ -78,7 +77,6 @@ const login = createAsyncThunk(
           );
           const student = userDataResponse.data.result as IStudent;
 
-          console.log('here 1', student.resetPasswordExpires);
 
           if (student.resetPasswordExpires && student.resetPasswordToken) {
             const _userfp: IUserForgotPasswordTokenObject = {
@@ -86,7 +84,6 @@ const login = createAsyncThunk(
               resetPasswordExpires: student.resetPasswordExpires,
               resetPasswordToken: student.resetPasswordToken,
             };
-            console.log('here 2', _userfp);
 
             localStorage.setItem('user_fp', JSON.stringify(_userfp));
           }

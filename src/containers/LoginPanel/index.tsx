@@ -37,7 +37,6 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
 
   const loginHanlder = form.onSubmit(
     (values, e) => {
-      console.log(values, e);
       dispatch(userAuthActions.login(values));
     },
     (err) => {

@@ -52,8 +52,8 @@ const CourseCard: React.FunctionComponent<CourseCardProps> = (props) => {
       </section>
       <footer className="my-2 px-2">
         <button
-          type="button"
-          className="flex justify-center items-center bg-indigo-500 hover:bg-indigo-600 text-white px-2 py-1.5 rounded-md shadow-md w-full disabled:bg-gray-300"
+          
+          className="flex justify-center items-center bg-indigo-500 cursor-default text-white px-2 py-1.5 rounded-md shadow-md w-full disabled:bg-gray-300"
           onClick={() => {}}
           disabled={
             props.students.length >= props.capacity ||

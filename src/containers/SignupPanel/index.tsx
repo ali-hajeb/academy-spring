@@ -54,7 +54,7 @@ const SignUpPanel: React.FunctionComponent<SignUpPanelProps> = () => {
 
   const loginHanlder = form.onSubmit(
     (values, e) => {
-      console.log(values, e);
+      
       const { firstName, lastName, email, password, phoneNumber, nationalId } =
         values;
       dispatch(
