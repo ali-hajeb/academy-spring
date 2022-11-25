@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import React from 'react';
 import { useFetchCourseById } from '../features/Courses/hooks/useFetchCourseById';
 import CoursePanel from '../containers/CoursePanel';
@@ -17,7 +17,7 @@ const CoursePage: React.FunctionComponent<CoursePageProps> = () => {
       toggleLike={toggleLike}
       addStudentToCourse={addStudentToCourse}
     />
-  ) : (
+  ) : course.status === 'failed'?<Navigate to={'/1'} />: (
     <div className="w-screen min-h-screen relative flex justify-center items-center">
       <LoadingAnimation />
     </div>
