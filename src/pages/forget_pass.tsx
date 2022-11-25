@@ -1,4 +1,6 @@
 import React from 'react';
+import Header from '../components/Header';
+import ForgetPassPanel from '../containers/ForgetPassPanel';
 
 export interface ForgetPassPageProps {
   
@@ -6,9 +8,9 @@ export interface ForgetPassPageProps {
 
 const ForgetPassPage: React.FunctionComponent<ForgetPassPageProps> = () => {
   return (
-    <>
-      <h1>Forget Pass</h1>
-    </>
+    <Header>
+      <ForgetPassPanel />
+    </Header>
   );
 }
 

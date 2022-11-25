@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { AUTH_API_URL } from '../constants';
+import authHeader from './authHeader';
 
-const getUserProfile = (username: string) => {
-  return axios.get(`${AUTH_API_URL}/user/${username}`);
+const getUser = (user_id: string) => {
+  return axios.get(`${AUTH_API_URL}/student/${user_id}`, {
+    headers: authHeader(),
+  });
 };
 
 const userService = {
-  getUserProfile,
+  getUser,
 };
 
 export default userService;

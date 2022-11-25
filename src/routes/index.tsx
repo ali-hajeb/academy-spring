@@ -25,7 +25,7 @@ const authenticationRoutes: RouteObject[] = [
   { path: '/login', element: <LoginPage /> },
   { path: '/logout', element: <LogoutPage /> },
   { path: '/signup', element: <SignUpPage /> },
-  { path: '/reset_pass', element: <ResetPassPage /> },
+  { path: '/reset_pass/:token', element: <ResetPassPage /> },
   { path: '/forget_pass', element: <ForgetPassPage /> },
 ];
 

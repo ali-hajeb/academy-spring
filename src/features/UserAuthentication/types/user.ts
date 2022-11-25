@@ -23,14 +23,17 @@ export interface IStudent {
   role: string;
   isActive: true;
   nationalId: string;
-  registerDate: Date | null;
+  registerDate: string | null;
   profile: string;
+  resetPasswordExpires?: string;
+  resetPasswordToken?: string;
 }
 
-export interface IUserAuthResponseObject {
-  success: boolean;
-  message: IResponseMessage[];
-}
+export interface IUserForgotPasswordTokenObject {
+  email?: string;
+  resetPasswordExpires?: string;
+  resetPasswordToken?: string;
+};
 
 export interface IResponse {
   success: boolean;
@@ -40,8 +43,8 @@ export interface IResponse {
 export interface ILoginResponse {
   success: boolean;
   message: {
-    eventId: number,
-    message: IResponseMessage[]
+    eventId: number;
+    message: IResponseMessage[];
   };
 }
 

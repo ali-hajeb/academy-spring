@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { userLocalStorageKey } from '../constants';
 import authService from '../services/authService';
+import userService from '../services/userService';
 import {
   IUserLoginObject,
   IUserRedux,
@@ -9,6 +10,8 @@ import {
   IUserSignUpObject,
   IResponse,
   ILoginResponse,
+  IStudent,
+  IUserForgotPasswordTokenObject,
 } from '../types/user';
 import { logout } from './userSlice';
 
@@ -25,10 +28,14 @@ const signUp = createAsyncThunk(
         })
       );
     } catch (error) {
-      let errorResponse = { code: 500, message: 'Something went wrong!' };
+      let errorResponse: IResponse = {
+        success: false,
+        message: [{ eventId: 500, message: 'یه مشکلی پیش اومده!' }],
+      };
       if (axios.isAxiosError(error)) {
-        errorResponse.code = error.status || 500;
-        errorResponse = { ...errorResponse, ...error.response?.data };
+        errorResponse.message[0].eventId = error.status || 500;
+        if (error.status !== 500)
+          errorResponse = { ...errorResponse, ...error.response?.data };
       }
       return rejectWithValue(errorResponse);
     }
@@ -49,6 +56,42 @@ const login = createAsyncThunk(
           token: userData.result.jwtToken,
         })
       );
+
+      const userFP: IUserForgotPasswordTokenObject = JSON.parse(
+        localStorage.getItem('user_fp') || '{}'
+      );
+
+      if (
+        !userFP.resetPasswordToken ||
+        (userFP.resetPasswordExpires &&
+          new Date(userFP.resetPasswordExpires).getMilliseconds() <
+            new Date().getMilliseconds())
+      ) {
+        console.log('here');
+        try {
+          await authService.forgetPassword(userData.result.studentModel.email);
+        } catch (error) {}
+
+        try {
+          const userDataResponse = await userService.getUser(
+            userData.result.studentModel._id
+          );
+          const student = userDataResponse.data.result as IStudent;
+
+          console.log('here 1', student.resetPasswordExpires);
+
+          if (student.resetPasswordExpires && student.resetPasswordToken) {
+            const _userfp: IUserForgotPasswordTokenObject = {
+              email: student.email,
+              resetPasswordExpires: student.resetPasswordExpires,
+              resetPasswordToken: student.resetPasswordToken,
+            };
+            console.log('here 2', _userfp);
+
+            localStorage.setItem('user_fp', JSON.stringify(_userfp));
+          }
+        } catch (error) {}
+      }
 
       return {
         ...userData.result.studentModel,

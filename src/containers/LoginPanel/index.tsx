@@ -9,7 +9,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../../store';
 import Spinner from '../../components/Spinner';
 import Alert from '../../components/Alert';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ILoginResponse } from '../../features/UserAuthentication/types/user';
 import CardContainer from '../../components/Card/CardContainer';
 
@@ -77,6 +77,9 @@ const LoginPanel: React.FunctionComponent<LoginPanelProps> = () => {
             required
             {...form.getInputProps('password')}
           />
+          <Link className="block mt-3 text-indigo-600" to={'/forget_pass'}>
+            فراموشی گذرواژه
+          </Link>
           <div className="mt-3">
             <button
               className="flex justify-center items-center bg-indigo-500 hover:bg-indigo-600 text-white px-2 py-1.5 rounded-md shadow-md w-full disabled:bg-gray-300"
