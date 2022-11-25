@@ -10,11 +10,30 @@ import {
   BanknotesIcon,
   CalendarDaysIcon,
 } from '@heroicons/react/24/outline';
+import {BookmarkIcon} from '@heroicons/react/24/solid';
 import { numberWithCommas } from '../../utils';
+import { useAppSelector } from '../../store';
+import { useNavigate } from 'react-router-dom';
 
-export interface CoursePanelProps extends ICourse {}
+export interface CoursePanelProps {
+  course:{
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    error: { message:string} | undefined;
+    payload:ICourse ;
+    isLiked: boolean,
+    count: number,
+    isStudentEnrolled: boolean
+        };
+  toggleLike:()=>void,
+  addStudentToCourse:()=>void
+    
+  
+}
 
 const CoursePanel: React.FunctionComponent<CoursePanelProps> = (props) => {
+ const isUserLoggedIn = useAppSelector(state=>state.user.isLoggedIn);
+ const navigate = useNavigate()
+  
   return (
     <Header>
       <div dir="ltr" className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -25,27 +44,39 @@ const CoursePanel: React.FunctionComponent<CoursePanelProps> = (props) => {
             </header>
             <section className="card-content p-2">
               <h2 dir="auto" className="font-bold text-3xl text-center">
-                {props.title}
+                {props?.course?.payload?.title}
               </h2>
               <button
                 type="button"
                 className="flex justify-center items-center my-2 bg-indigo-500 hover:bg-indigo-600 text-white px-2 py-1.5 rounded-md shadow-md w-full disabled:bg-gray-300"
-                onClick={() => {}}
+                onClick={()=>{
+                  if(isUserLoggedIn){props.addStudentToCourse()}else{
+                    navigate('/login',{state:{from:`/courses/${props.course.payload._id}`}})
+                  }
+                  }}
                 disabled={
-                  props.students.length >= props.capacity ||
+                  props?.course?.payload?.students?.length >= props?.course?.payload?.capacity ||
                   moment
-                    .from(props.startDate, 'fa')
-                    .isBefore(moment(), 'milliseconds')
+                    .from(props?.course?.payload?.startDate, 'fa')
+                    .isBefore(moment(), 'milliseconds') || props.course.isStudentEnrolled
                 }
               >
-                {props.students.length >= props.capacity
+                {props?.course?.payload?.students?.length >= props?.course?.payload?.capacity
                   ? 'ظرفیت تکمیل است!'
                   : moment
-                      .from(props.startDate, 'fa')
+                      .from(props?.course?.payload?.startDate, 'fa')
                       .isBefore(moment(), 'milliseconds')
-                  ? 'پایان مهلت نام‌نویسی'
-                  : 'نام‌نویسی'}
+                  ?  'پایان مهلت نام‌نویسی'
+                  :  props.course.isStudentEnrolled ? "ثبت نام موفق" : 'نام‌نویسی'}
               </button>
+
+              {isUserLoggedIn && <button
+              onClick={props.toggleLike}
+              className={`flex justify-center items-center my-2 text-white ${props.course.isLiked ? 'bg-indigo-300 hover:bg-indigo-400 ':'bg-indigo-400 hover:bg-indigo-300'}  px-2 py-1.5 rounded-md shadow-md w-full disabled:bg-gray-300`} 
+               >
+                <BookmarkIcon color={` ${props.course.isLiked ? 'indigo':'white'} `} height={'2rem'} />
+               </button>}
+
               <div className="text-gray-500 mt-2">
                 <div dir="rtl" className="flex items-center gap-2">
                   <div>
@@ -53,8 +84,8 @@ const CoursePanel: React.FunctionComponent<CoursePanelProps> = (props) => {
                   </div>
                   {/* <div>بازه ثبت نام</div> */}
                   <div className="persian-digits">
-                    {`${moment(props.endDate).format('YYYY/MM/DD')} تا ${moment(
-                      props.startDate
+                    {`${moment(props?.course?.payload?.endDate).format('YYYY/MM/DD')} تا ${moment(
+                      props?.course?.payload?.startDate
                     ).format('YYYY/MM/DD')}`}
                   </div>
                 </div>
@@ -64,7 +95,7 @@ const CoursePanel: React.FunctionComponent<CoursePanelProps> = (props) => {
                   </div>
                   {/* <div>ظرفیت باقی‌مانده:</div> */}
                   <div className="persian-digits">
-                    {`${props.capacity - props.students.length} نفر باقی‌مانده`}
+                    {`${props?.course?.payload?.capacity - props?.course?.payload?.students?.length} نفر باقی‌مانده`}
                   </div>
                 </div>
                 <div dir="rtl" className="flex items-center gap-2">
@@ -73,7 +104,7 @@ const CoursePanel: React.FunctionComponent<CoursePanelProps> = (props) => {
                   </div>
                   {/* <div>قیمت: </div> */}
                   <div className="persian-digits">
-                    {`${numberWithCommas(props.cost)} تومان`}
+                    {`${numberWithCommas(props?.course?.payload?.cost)} تومان`}
                   </div>
                 </div>
               </div>
@@ -84,16 +115,16 @@ const CoursePanel: React.FunctionComponent<CoursePanelProps> = (props) => {
           <CardContainer>
             <section className="card-content p-2 md:min-h-[376px]">
               <h2 dir="auto" className="font-bold text-lg">
-                {props.lesson.lessonName}
+                {props?.course?.payload?.lesson?.lessonName}
               </h2>
               <p dir="auto" className="mb-5">
-                {props.lesson.description}
+                {props?.course?.payload?.lesson?.description}
               </p>
               <h2 dir="auto" className="font-bold ">
                 Topics
               </h2>
               <div className="flex items-center gap-2 mb-5">
-                {props.lesson.topics.map((t, i) => (
+                {props?.course?.payload?.lesson?.topics.map((t, i) => (
                   <div
                     key={t + i}
                     className="rounded-3xl bg-blue-100 text-blue-500 px-3 py-1 text-sm"
@@ -110,7 +141,7 @@ const CoursePanel: React.FunctionComponent<CoursePanelProps> = (props) => {
                   <UserIcon height={'2rem'} />
                 </div>
                 <div>
-                  <div className="font-bold">{props.teacher.fullName}</div>
+                  <div className="font-bold">{props?.course?.payload?.teacher?.fullName}</div>
                   <div className="text-gray-500 text-sm">Programmer</div>
                 </div>
               </div>

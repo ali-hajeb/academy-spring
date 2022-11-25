@@ -43,11 +43,14 @@ disLikeCourse(courseId:string){
 
 countLike(courseId:string){
   const {userId} = authForCourseRequests();
-  return  axios.post(`http://querateam1.herokuapp.com/api/course/likeCount/${userId}`, {
+
+  return axios.get(`http://querateam1.herokuapp.com/api/course/likeCount/${courseId}`,{data:{
     "termId": courseId,
     "userId": userId,
     "like": true
-});
+}})
+
+ 
 
 }
 }
