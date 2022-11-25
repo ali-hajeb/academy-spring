@@ -6,10 +6,10 @@ import { useAppDispatch } from '../store';
 const LogoutPage: React.FunctionComponent = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  
+
   useEffect(() => {
     dispatch(userAuthActions.logout());
-    navigate('/', {replace: true});
+    navigate('/', { replace: true });
   }, [dispatch]);
 
   return <></>;

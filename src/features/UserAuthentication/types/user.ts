@@ -33,7 +33,7 @@ export interface IUserForgotPasswordTokenObject {
   email?: string;
   resetPasswordExpires?: string;
   resetPasswordToken?: string;
-};
+}
 
 export interface IResponse {
   success: boolean;

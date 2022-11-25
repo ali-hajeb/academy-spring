@@ -1,8 +1,6 @@
 import React from 'react';
 
-export interface NotFoundPageProps {
-  
-}
+export interface NotFoundPageProps {}
 
 const NotFoundPage: React.FunctionComponent<NotFoundPageProps> = () => {
   return (
@@ -10,6 +8,6 @@ const NotFoundPage: React.FunctionComponent<NotFoundPageProps> = () => {
       <h1>Not Found</h1>
     </>
   );
-}
+};
 
 export default NotFoundPage;

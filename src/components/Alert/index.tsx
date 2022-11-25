@@ -13,10 +13,13 @@ const Alert: React.FunctionComponent<AlertProps> = ({
   color,
   title,
 }) => {
-  const alertColor = color || (response?.eventId && getColorFromCode(response.eventId)) || 'pink';
+  const alertColor =
+    color ||
+    (response?.eventId && getColorFromCode(response.eventId)) ||
+    'pink';
   const bgColor = `bg-${alertColor}-500`;
-  const textColor = `text-${alertColor}-500`
-  const borderColor = `border-${alertColor}-500`
+  const textColor = `text-${alertColor}-500`;
+  const borderColor = `border-${alertColor}-500`;
   return (
     <>
       {response?.eventId && (

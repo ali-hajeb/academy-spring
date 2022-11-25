@@ -13,8 +13,14 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
 
   const redirectPath = state?.from !== '/logout' ? state?.from || '/' : '/';
   const redirect = token ? <Navigate to={redirectPath} replace /> : null;
-  
-  return redirect || <Header><LoginPanel /></Header>;
+
+  return (
+    redirect || (
+      <Header>
+        <LoginPanel />
+      </Header>
+    )
+  );
 };
 
 export default LoginPage;

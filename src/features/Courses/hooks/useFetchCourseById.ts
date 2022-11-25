@@ -134,18 +134,20 @@ export const useFetchCourseById = (id: string) => {
   };
 
   const addStudentToCourse = async () => {
-    
-    try {const res = await courseRequest.addStudentToCourse(id);
-      
+    try {
+      const res = await courseRequest.addStudentToCourse(id);
+
       if (res.data.success) {
         setCourse({ ...course, isStudentEnrolled: true });
       }
-    } catch (error:any) {
-
-      
-      if (error?.response?.data?.message === 'آیدی نا معتبر، دوباره امتحان کنید') {
+    } catch (error: any) {
+      if (
+        error?.response?.data?.message === 'آیدی نا معتبر، دوباره امتحان کنید'
+      ) {
         dispatch(logout());
-        navigate('/login');
+        navigate('/login', {
+          state: { from: `/courses/${id}` },
+        });
       }
     }
   };

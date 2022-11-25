@@ -2,9 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import ResetPassPanel from '../containers/ResetPassPanel';
 
-export interface ResetPassPageProps {
-  
-}
+export interface ResetPassPageProps {}
 
 const ResetPassPage: React.FunctionComponent<ResetPassPageProps> = () => {
   return (
@@ -12,6 +10,6 @@ const ResetPassPage: React.FunctionComponent<ResetPassPageProps> = () => {
       <ResetPassPanel />
     </Header>
   );
-}
+};
 
 export default ResetPassPage;

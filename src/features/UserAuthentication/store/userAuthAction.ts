@@ -77,7 +77,6 @@ const login = createAsyncThunk(
           );
           const student = userDataResponse.data.result as IStudent;
 
-
           if (student.resetPasswordExpires && student.resetPasswordToken) {
             const _userfp: IUserForgotPasswordTokenObject = {
               email: student.email,

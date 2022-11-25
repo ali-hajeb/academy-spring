@@ -1,7 +1,6 @@
 import { RouteObject } from 'react-router-dom';
 import CoursePage from '../pages/course';
 import CoursesPage from '../pages/courses';
-import Arash from '../pages/arash';
 import ForgetPassPage from '../pages/forget_pass';
 import HomePage from '../pages/home';
 import LoginPage from '../pages/login';
@@ -19,7 +18,6 @@ const publicRoutes: RouteObject[] = [
   { path: '/courses/:id', element: <CoursePage /> },
   { path: '/courses', element: <CoursesPage /> },
   { path: '/contact-us', element: <ContactUsPage /> },
-  { path: '/arash', element: <Arash /> },
 ];
 const authenticationRoutes: RouteObject[] = [
   { path: '/login', element: <LoginPage /> },

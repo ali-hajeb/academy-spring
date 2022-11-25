@@ -6,7 +6,6 @@ import UserPanel from './containers/UserPanel';
 import UserProtectedRoutesContainer from './containers/UserProtectedRoutesContainer';
 import userAuthAction from './store/userAuthAction';
 
-
 export interface AppProps {
   protectedRoutes: RouteObject[];
   publicRoutes: RouteObject[];
@@ -29,7 +28,7 @@ const UserProtectedRoutesProvider: React.FunctionComponent<AppProps> = ({
   const dispatch = useAppDispatch();
   const checkAuthStateHandler = useCallback(
     () => dispatch(userAuthAction.checkAuthState()),
-    [dispatch],
+    [dispatch]
   );
 
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
@@ -62,7 +61,7 @@ const UserProtectedRoutesProvider: React.FunctionComponent<AppProps> = ({
       userPanelComponent,
       authenticationRoutes,
       notFoundPage,
-    ],
+    ]
   );
 
   return (
