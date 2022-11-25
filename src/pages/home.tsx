@@ -33,7 +33,7 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
   const searchHandler = useCallback(
     debounce((value: string) => {
       dispatch(setSearchClue(value));
-      dispatch(coursesAction.searchAllCourses())
+      dispatch(coursesAction.searchAllCourses());
     }, 500),
     []
   );

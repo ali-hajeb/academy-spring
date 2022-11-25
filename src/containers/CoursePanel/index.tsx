@@ -66,7 +66,11 @@ const CoursePanel: React.FunctionComponent<CoursePanelProps> = (props) => {
                 )}
                 <button
                   type="button"
-                  className={`flex justify-center items-center grow my-2 bg-indigo-500 hover:bg-indigo-600 text-white px-2 py-1.5 rounded-md shadow-md w-full ${props.course.isStudentEnrolled?'disabled:bg-green-500':'disabled:bg-gray-300'} `}
+                  className={`flex justify-center items-center grow my-2 bg-indigo-500 hover:bg-indigo-600 text-white px-2 py-1.5 rounded-md shadow-md w-full ${
+                    props.course.isStudentEnrolled
+                      ? 'disabled:bg-green-500'
+                      : 'disabled:bg-gray-300'
+                  } `}
                   onClick={() => {
                     if (isUserLoggedIn) {
                       props.addStudentToCourse();
