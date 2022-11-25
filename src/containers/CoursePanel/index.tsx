@@ -9,31 +9,30 @@ import {
   UsersIcon,
   BanknotesIcon,
   CalendarDaysIcon,
+  BookmarkIcon as OutlineBookmarkIcon,
 } from '@heroicons/react/24/outline';
-import {BookmarkIcon} from '@heroicons/react/24/solid';
+import { BookmarkIcon } from '@heroicons/react/24/solid';
 import { numberWithCommas } from '../../utils';
 import { useAppSelector } from '../../store';
 import { useNavigate } from 'react-router-dom';
 
 export interface CoursePanelProps {
-  course:{
+  course: {
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
-    error: { message:string} | undefined;
-    payload:ICourse ;
-    isLiked: boolean,
-    count: number,
-    isStudentEnrolled: boolean
-        };
-  toggleLike:()=>void,
-  addStudentToCourse:()=>void
-    
-  
+    error: { message: string } | undefined;
+    payload: ICourse;
+    isLiked: boolean;
+    count: number;
+    isStudentEnrolled: boolean;
+  };
+  toggleLike: () => void;
+  addStudentToCourse: () => void;
 }
 
 const CoursePanel: React.FunctionComponent<CoursePanelProps> = (props) => {
- const isUserLoggedIn = useAppSelector(state=>state.user.isLoggedIn);
- const navigate = useNavigate()
-  
+  const isUserLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+  const navigate = useNavigate();
+
   return (
     <Header>
       <div dir="ltr" className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -46,59 +45,86 @@ const CoursePanel: React.FunctionComponent<CoursePanelProps> = (props) => {
               <h2 dir="auto" className="font-bold text-3xl text-center">
                 {props?.course?.payload?.title}
               </h2>
-              <button
-                type="button"
-                className="flex justify-center items-center my-2 bg-indigo-500 hover:bg-indigo-600 text-white px-2 py-1.5 rounded-md shadow-md w-full disabled:bg-gray-300"
-                onClick={()=>{
-                  if(isUserLoggedIn){props.addStudentToCourse()}else{
-                    navigate('/login',{state:{from:`/courses/${props.course.payload._id}`}})
-                  }
+              <div className="flex items-center gap-2">
+                {isUserLoggedIn && (
+                  <button
+                    onClick={props.toggleLike}
+                    className={`flex justify-center items-center my-2 px-2 py-1 disabled:bg-gray-300`}
+                  >
+                    {props.course.isLiked ? (
+                      <BookmarkIcon
+                        color="rgb(99, 102, 241)"
+                        height={'1.5rem'}
+                      />
+                    ) : (
+                      <OutlineBookmarkIcon
+                        color="rgb(99, 102, 241)"
+                        height={'1.5rem'}
+                      />
+                    )}
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className="flex justify-center items-center grow my-2 bg-indigo-500 hover:bg-indigo-600 text-white px-2 py-1.5 rounded-md shadow-md w-full disabled:bg-gray-300"
+                  onClick={() => {
+                    if (isUserLoggedIn) {
+                      props.addStudentToCourse();
+                    } else {
+                      navigate('/login', {
+                        state: { from: `/courses/${props.course.payload._id}` },
+                      });
+                    }
                   }}
-                disabled={
-                  props?.course?.payload?.students?.length >= props?.course?.payload?.capacity ||
-                  moment
-                    .from(props?.course?.payload?.startDate, 'fa')
-                    .isBefore(moment(), 'milliseconds') || props.course.isStudentEnrolled
-                }
-              >
-                {props?.course?.payload?.students?.length >= props?.course?.payload?.capacity
-                  ? 'ظرفیت تکمیل است!'
-                  : moment
+                  disabled={
+                    props?.course?.payload?.students?.length >=
+                      props?.course?.payload?.capacity ||
+                    moment
                       .from(props?.course?.payload?.startDate, 'fa')
-                      .isBefore(moment(), 'milliseconds')
-                  ?  'پایان مهلت نام‌نویسی'
-                  :  props.course.isStudentEnrolled ? "ثبت نام موفق" : 'نام‌نویسی'}
-              </button>
+                      .isBefore(moment(), 'milliseconds') ||
+                    props.course.isStudentEnrolled
+                  }
+                >
+                  {props?.course?.payload?.students?.length >=
+                  props?.course?.payload?.capacity
+                    ? 'ظرفیت تکمیل است!'
+                    : moment
+                        .from(props?.course?.payload?.startDate, 'fa')
+                        .isBefore(moment(), 'milliseconds')
+                    ? 'پایان مهلت نام‌نویسی'
+                    : props.course.isStudentEnrolled
+                    ? 'ثبت نام موفق'
+                    : 'نام‌نویسی'}
+                </button>
+              </div>
 
-              {isUserLoggedIn && <button
-              onClick={props.toggleLike}
-              className={`flex justify-center items-center my-2 text-white ${props.course.isLiked ? 'bg-indigo-300 hover:bg-indigo-400 ':'bg-indigo-400 hover:bg-indigo-300'}  px-2 py-1.5 rounded-md shadow-md w-full disabled:bg-gray-300`} 
-               >
-                <BookmarkIcon color={` ${props.course.isLiked ? 'indigo':'white'} `} height={'2rem'} />
-               </button>}
-
-              <div className="text-gray-500 mt-2">
+              <div className="text-gray-400 mt-2 text-sm">
                 <div dir="rtl" className="flex items-center gap-2">
                   <div>
                     <CalendarDaysIcon height={'1.5rem'} />
                   </div>
                   {/* <div>بازه ثبت نام</div> */}
                   <div className="persian-digits">
-                    {`${moment(props?.course?.payload?.endDate).format('YYYY/MM/DD')} تا ${moment(
-                      props?.course?.payload?.startDate
-                    ).format('YYYY/MM/DD')}`}
+                    {`${moment(props?.course?.payload?.endDate).format(
+                      'YYYY/MM/DD'
+                    )} تا ${moment(props?.course?.payload?.startDate).format(
+                      'YYYY/MM/DD'
+                    )}`}
                   </div>
                 </div>
-                <div dir="rtl" className="flex items-center gap-2">
+                <div dir="rtl" className="flex items-center mt-2 gap-2">
                   <div>
                     <UsersIcon height={'1.5rem'} />
                   </div>
                   {/* <div>ظرفیت باقی‌مانده:</div> */}
                   <div className="persian-digits">
-                    {`${props?.course?.payload?.capacity - props?.course?.payload?.students?.length} نفر باقی‌مانده`}
+                    {`${
+                      props?.course?.payload?.capacity -
+                      props?.course?.payload?.students?.length
+                    } نفر باقی‌مانده`}
                   </div>
                 </div>
-                <div dir="rtl" className="flex items-center gap-2">
+                <div dir="rtl" className="flex items-center mt-2 gap-2">
                   <div>
                     <BanknotesIcon height={'1.5rem'} />
                   </div>
@@ -113,7 +139,7 @@ const CoursePanel: React.FunctionComponent<CoursePanelProps> = (props) => {
         </div>
         <div className="col-span-2">
           <CardContainer>
-            <section className="card-content p-2 md:min-h-[376px]">
+            <section className="card-content p-2 md:min-h-[400px]">
               <h2 dir="auto" className="font-bold text-lg">
                 {props?.course?.payload?.lesson?.lessonName}
               </h2>
@@ -141,7 +167,9 @@ const CoursePanel: React.FunctionComponent<CoursePanelProps> = (props) => {
                   <UserIcon height={'2rem'} />
                 </div>
                 <div>
-                  <div className="font-bold">{props?.course?.payload?.teacher?.fullName}</div>
+                  <div className="font-bold">
+                    {props?.course?.payload?.teacher?.fullName}
+                  </div>
                   <div className="text-gray-500 text-sm">Programmer</div>
                 </div>
               </div>

@@ -1,4 +1,6 @@
 import React from 'react';
+import Header from '../components/Header';
+import ResetPassPanel from '../containers/ResetPassPanel';
 
 export interface ResetPassPageProps {
   
@@ -6,9 +8,9 @@ export interface ResetPassPageProps {
 
 const ResetPassPage: React.FunctionComponent<ResetPassPageProps> = () => {
   return (
-    <>
-      <h1>Reset Pass</h1>
-    </>
+    <Header>
+      <ResetPassPanel />
+    </Header>
   );
 }
 

@@ -8,11 +8,20 @@ import LoadingAnimation from '../components/loadingAnimation/loadingAnimation';
 export interface CoursePageProps {}
 
 const CoursePage: React.FunctionComponent<CoursePageProps> = () => {
-  const {id} = useParams() as {id: string};
-  const {course, toggleLike, addStudentToCourse} = useFetchCourseById(id) ;
+  const { id } = useParams() as { id: string };
+  const { course, toggleLike, addStudentToCourse } = useFetchCourseById(id);
 
-  return course.status === 'succeeded' ?(<CoursePanel course={course} toggleLike={toggleLike} addStudentToCourse={addStudentToCourse} />
-  ) : <div className='w-screen min-h-screen relative flex justify-center items-center' ><LoadingAnimation/></div> ;
+  return course.status === 'succeeded' ? (
+    <CoursePanel
+      course={course}
+      toggleLike={toggleLike}
+      addStudentToCourse={addStudentToCourse}
+    />
+  ) : (
+    <div className="w-screen min-h-screen relative flex justify-center items-center">
+      <LoadingAnimation />
+    </div>
+  );
 };
 
 export default CoursePage;

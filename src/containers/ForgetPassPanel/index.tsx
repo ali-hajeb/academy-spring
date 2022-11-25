@@ -7,7 +7,6 @@ import CardContainer from '../../components/Card/CardContainer';
 import Spinner from '../../components/Spinner';
 import TextInput from '../../components/TextInput';
 import UserFormBox from '../../components/UserFormBox';
-import authService from '../../features/UserAuthentication/services/authService';
 import {
   IResponse,
   IUserForgotPasswordTokenObject,
@@ -34,7 +33,7 @@ const ForgetPassPanel: React.FunctionComponent<ForgetPassPanelProps> = () => {
     validateInputOnChange: true,
   });
 
-  const loginHanlder = form.onSubmit(
+  const forgetPassHanlder = form.onSubmit(
     (values, e) => {
       console.log(values, e);
       setIsLoading(true);
@@ -77,10 +76,10 @@ const ForgetPassPanel: React.FunctionComponent<ForgetPassPanelProps> = () => {
     }
   );
   return (
-    <UserFormBox formSubmitHandler={loginHanlder}>
+    <UserFormBox formSubmitHandler={forgetPassHanlder}>
       <CardContainer>
         <div className="p-3">
-          <h1 className="text-xl text-center font-bold">ورود به آکادمی!</h1>
+          <h1 className="text-xl text-center font-bold">فراموشی گذرواژه</h1>
           <Alert
             response={(response?.message && response?.message[0]) || null}
           />

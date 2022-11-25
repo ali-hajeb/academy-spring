@@ -5,9 +5,7 @@ import Header from '../components/Header';
 import Section from '../components/Section';
 import coursesAction from '../features/Courses/store/coursesAction';
 import PaginationBar from '../components/paginationBar';
-import {
-  setSearchClue,
-} from '../features/Courses/store/coursesSlice';
+import { setSearchClue } from '../features/Courses/store/coursesSlice';
 import { useAppDispatch, useAppSelector } from '../store';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import CourseCard, { CourseCardSkeleton } from '../components/Card/CourseCard';
@@ -25,7 +23,6 @@ const navbarItems: INavItem[] = [
 export interface HomePageProps {}
 
 const HomePage: React.FunctionComponent<HomePageProps> = () => {
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -33,20 +30,35 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
   const courses = useAppSelector((state) => state.courses);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const searchHandler = useCallback(debounce((value:string)=>{dispatch(setSearchClue(value))}, 500), []);
-  const pageNumber = useParams().pageNumber ;
-  const navigate = useNavigate()
+  const searchHandler = useCallback(
+    debounce((value: string) => {
+      dispatch(setSearchClue(value));
+      dispatch(coursesAction.searchAllCourses())
+    }, 500),
+    []
+  );
+  const pageNumber = useParams().pageNumber;
+  const navigate = useNavigate();
   const getCoursesHandler = useCallback(
-    () => dispatch(coursesAction.getCourses({pageSize: 6,pageNumber:pageNumber ?  +pageNumber : 1})),
-    [dispatch,pageNumber]
+    () =>
+      dispatch(
+        coursesAction.getCourses({
+          pageSize: 6,
+          pageNumber: pageNumber ? +pageNumber : 1,
+        })
+      ),
+    [dispatch, pageNumber]
   );
 
   useEffect(() => {
     getCoursesHandler();
-    if (pageNumber === undefined || +pageNumber > courses.paginationPagesCount) {
+    if (
+      pageNumber === undefined ||
+      +pageNumber > courses.paginationPagesCount
+    ) {
       navigate('/1');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getCoursesHandler]);
   return (
     <>
@@ -98,18 +110,14 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
         </div>
       </Header>
       <Section title="دوره‌های آکادمی بهار" className="isolate mt-5">
-        <form onSubmit={(e)=>{
-          e.preventDefault()
-          dispatch(coursesAction.searchAllCourses())}} className="search-box mx-4 my-4">
-          <TextInput
-            type={'search'}
-            id="search"
-            icon={<MagnifyingGlassIcon height="2rem" />}
-            placeholder="نام دوره ..."
-            // value={search}
-            onChange={(e) => searchHandler(e.target.value)}
-          />
-        </form>
+        <TextInput
+          type={'search'}
+          id="search"
+          icon={<MagnifyingGlassIcon height="2rem" />}
+          placeholder="نام دوره ..."
+          // value={search}
+          onChange={(e) => searchHandler(e.target.value)}
+        />
         <div className="p-5">
           {courses.status === 'loading' ? (
             <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -125,14 +133,13 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {courses.coursesList
-                ?.map((course) => {
-                  return <CourseCard key={course._id} {...course} />;
-                })}
+              {courses.coursesList?.map((course) => {
+                return <CourseCard key={course._id} {...course} />;
+              })}
             </div>
           )}
         </div>
-        <PaginationBar/>
+        <PaginationBar />
       </Section>
     </>
   );

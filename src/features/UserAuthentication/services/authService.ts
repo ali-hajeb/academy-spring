@@ -14,15 +14,15 @@ const forgetPassword = (email: string) => {
   return axios.post(`${AUTH_API_URL}/forgetpassword`, { email });
 };
 
-const resetPassword = (token: string) => {
-  return axios.post(`${AUTH_API_URL}/resetPassword/${token}`);
+const resetPassword = (token: string, password: string) => {
+  return axios.post(`${AUTH_API_URL}/resetPassword/${token}`, { password });
 };
 
 const authService = {
   signUp,
   login,
   forgetPassword,
-  resetPassword
+  resetPassword,
 };
 
 export default authService;
